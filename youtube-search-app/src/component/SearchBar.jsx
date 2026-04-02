@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
                     type="text"
                     value={term}
                     onChange={(e) => setTerm(e.target.value)}
-                    placeholder="Tìm kiếm video trên YouTube..."
+                    placeholder="Search for videos on YouTube..."
                     className="w-full px-5 py-3 pl-12 text-gray-700 bg-white border border-gray-300 rounded-full shadow-sm focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500"
                 />
                 <Search className="absolute left-4 text-gray-400" size={20} />

@@ -16,7 +16,7 @@ function App() {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('SQL Server Manaagement Studio Tutorial'); // Tìm mặc định
+  const [searchTerm, setSearchTerm] = useState('SQL Server Management Studio Tutorial'); // Tìm mặc định
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);//Thêm Register
   const [isLoginOpen, setIsLoginOpen] = useState(false);//Thêm Login
   const [currentUser, setCurrentUser] = useState(null); // lưu object user
@@ -116,24 +116,6 @@ function App() {
                 </div>
             )}
           </div>
-          {/* 🔘 LOGIN + REGISTER BUTTON */}
-          {/*<div className="flex items-center gap-2 sm:gap-4">*/}
-          {/*  /!* LOGIN *!/*/}
-          {/*  <button*/}
-          {/*      onClick={() => setIsLoginOpen(true)}*/}
-          {/*      className="bg-white text-gray-800 border border-gray-300 px-4 py-2 sm:px-5 rounded-xl text-sm sm:text-base font-medium shadow-sm hover:bg-gray-100 hover:shadow-md hover:-translate-y-0.5 active:scale-95 transition-all duration-200"*/}
-          {/*  >*/}
-          {/*    Login*/}
-          {/*  </button>*/}
-
-          {/*  /!* REGISTER *!/*/}
-          {/*  <button*/}
-          {/*      onClick={() => setIsRegisterOpen(true)}*/}
-          {/*      className="bg-red-600 text-white px-4 py-2 sm:px-5 rounded-xl text-sm sm:text-base font-medium shadow-md hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-200"*/}
-          {/*  >*/}
-          {/*    Register*/}
-          {/*  </button>*/}
-          {/*</div>*/}
         </nav>
 
         <SearchBar onSearch={handleSearch} />

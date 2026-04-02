@@ -206,7 +206,6 @@ function Register({isOpen, onClose}: LoginProps) {
                         onChange={handleChange}
                     />
 
-
                     <button
                         type="submit"
                         className="w-full bg-red-600 text-white py-2.5 rounded-xl text-sm sm:text-base font-medium shadow-md hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-200"

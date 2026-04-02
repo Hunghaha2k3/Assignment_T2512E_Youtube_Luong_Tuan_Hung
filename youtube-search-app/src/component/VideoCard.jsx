@@ -22,7 +22,7 @@ const VideoCard = ({ video, onVideoSelect, currentUser, setCurrentUser }) => {
         e.stopPropagation(); // tránh trigger onVideoSelect
 
         if (!currentUser) {
-            alert("Bạn cần đăng nhập để thêm vào yêu thích!");
+            alert("This feature is available for users who has Logged In!");
             return;
         }
 
