@@ -2,7 +2,7 @@ import React from 'react';
 import VideoCard from './VideoCard';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-const VideoList = ({ videos, onVideoSelect, onPageChange, hasNextPage, hasPrevPage }) => {
+const VideoList = ({ videos, onVideoSelect, currentUser, setCurrentUser, onPageChange, hasNextPage, hasPrevPage }) => {
     return (
         <div className="container mx-auto px-4">
             {/* Grid danh sách video */}
@@ -12,6 +12,8 @@ const VideoList = ({ videos, onVideoSelect, onPageChange, hasNextPage, hasPrevPa
                         key={video.id.videoId || video.id}
                         video={video}
                         onVideoSelect={onVideoSelect}
+                        currentUser={currentUser}
+                        setCurrentUser={setCurrentUser}
                     />
                 ))}
             </div>

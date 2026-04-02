@@ -7,6 +7,8 @@ import youtube from './api/youtube';
 import SearchBar from './component/SearchBar';
 import VideoList from './component/VideoList';
 import VideoModal from './component/VideoModal';
+import Register from "./Register";
+import Login from "./Login";
 import './App.css'
 
 
@@ -14,7 +16,16 @@ function App() {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('ReactJS tutorial'); // Tìm mặc định
+  const [searchTerm, setSearchTerm] = useState('SQL Server Manaagement Studio Tutorial'); // Tìm mặc định
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);//Thêm Register
+  const [isLoginOpen, setIsLoginOpen] = useState(false);//Thêm Login
+  const [currentUser, setCurrentUser] = useState(null); // lưu object user
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false); // popup menu khi click username
+
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("current_user") || "null");
+    if (savedUser) setCurrentUser(savedUser);
+  }, []);
 
   // Lưu token phân trang
   const [nextPageToken, setNextPageToken] = useState(null);
@@ -60,8 +71,69 @@ function App() {
 
   return (
       <div className="min-h-screen bg-gray-50 pb-10">
-        <nav className="bg-white shadow-sm py-4 sticky top-0 z-40">
-          <h1 className="text-center text-2xl font-bold text-red-600">MyTube Search</h1>
+        <nav className="bg-white shadow-sm py-4 sticky top-0 z-40 flex justify-between items-center px-4 sm:px-6">
+          <h1 className="text-2xl font-bold text-red-600">HungSearch.com</h1>
+          <div className="flex items-center gap-2">
+            {!currentUser ? (
+                <>
+                  <button
+                      onClick={() => setIsLoginOpen(true)}
+                      className="bg-white text-gray-800 border border-gray-300 px-4 py-2 sm:px-5 rounded-xl text-sm sm:text-base font-medium shadow-sm hover:bg-gray-100 hover:shadow-md hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
+                  >
+                    Login
+                  </button>
+                  <button
+                      onClick={() => setIsRegisterOpen(true)}
+                      className="bg-red-600 text-white px-4 py-2 sm:px-5 rounded-xl text-sm sm:text-base font-medium shadow-md hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-200"
+                  >
+                    Register
+                  </button>
+                </>
+            ) : (
+                <div className="relative">
+                  <button
+                      onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                      className="bg-gray-200 px-3 py-2 rounded-lg hover:bg-gray-300 transition"
+                  >
+                    {currentUser.username || currentUser.email}
+                  </button>
+
+                  {/* Popup menu */}
+                  {isUserMenuOpen && (
+                      <div className="absolute right-0 mt-2 w-32 bg-white border shadow-lg rounded-lg z-50">
+                        <button
+                            onClick={() => {
+                              setCurrentUser(null); // Đăng xuất
+                              localStorage.removeItem("current_user"); // Xóa LocalStorage
+                              setIsUserMenuOpen(false); //Đóng cửa sổ Pop up
+                            }}
+                            className="w-full text-left px-4 py-2 hover:bg-red-100 rounded-t-lg transition"
+                        >
+                          Log Out
+                        </button>
+                      </div>
+                  )}
+                </div>
+            )}
+          </div>
+          {/* 🔘 LOGIN + REGISTER BUTTON */}
+          {/*<div className="flex items-center gap-2 sm:gap-4">*/}
+          {/*  /!* LOGIN *!/*/}
+          {/*  <button*/}
+          {/*      onClick={() => setIsLoginOpen(true)}*/}
+          {/*      className="bg-white text-gray-800 border border-gray-300 px-4 py-2 sm:px-5 rounded-xl text-sm sm:text-base font-medium shadow-sm hover:bg-gray-100 hover:shadow-md hover:-translate-y-0.5 active:scale-95 transition-all duration-200"*/}
+          {/*  >*/}
+          {/*    Login*/}
+          {/*  </button>*/}
+
+          {/*  /!* REGISTER *!/*/}
+          {/*  <button*/}
+          {/*      onClick={() => setIsRegisterOpen(true)}*/}
+          {/*      className="bg-red-600 text-white px-4 py-2 sm:px-5 rounded-xl text-sm sm:text-base font-medium shadow-md hover:bg-red-700 hover:shadow-lg hover:-translate-y-0.5 active:scale-95 transition-all duration-200"*/}
+          {/*  >*/}
+          {/*    Register*/}
+          {/*  </button>*/}
+          {/*</div>*/}
         </nav>
 
         <SearchBar onSearch={handleSearch} />
@@ -77,6 +149,8 @@ function App() {
                 onPageChange={handlePageChange}
                 hasNextPage={!!nextPageToken}
                 hasPrevPage={!!prevPageToken}
+                currentUser={currentUser}
+                setCurrentUser={setCurrentUser}
             />
         )}
 
@@ -84,6 +158,21 @@ function App() {
         <VideoModal
             video={selectedVideo}
             onClose={() => setSelectedVideo(null)}
+            currentUser={currentUser}
+            setCurrentUser={setCurrentUser}
+        />
+
+        {/*Hiển thị cửa sổ Login khi nhấn vào nút Login*/}
+        <Login
+            isOpen={isLoginOpen}
+            onClose={() => setIsLoginOpen(false)}
+            onLogin={(user) => setCurrentUser(user)}
+        />
+
+        {/*Hiển thị cửa sổ Register khi nhấn vào nút Register*/}
+        <Register
+            isOpen={isRegisterOpen}
+            onClose={() => setIsRegisterOpen(false)}
         />
       </div>
   );

@@ -24,7 +24,7 @@ const SearchBar = ({ onSearch }) => {
                     type="submit"
                     className="ml-2 bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-full font-medium transition-colors"
                 >
-                    Tìm
+                    Search
                 </button>
             </form>
         </div>
